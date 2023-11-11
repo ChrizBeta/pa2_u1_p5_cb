@@ -17,5 +17,7 @@ public class Pa2U1P5CbApplication implements CommandLineRunner {
 		System.out.println("HOLA MUNDO");
 		System.out.println("SOY CHRISTIAN BETANCOURT");
 		System.out.println("mi segunndo commit");
+		
+		System.out.println("Nueva edicion para el taller 4");
 	}
 }
