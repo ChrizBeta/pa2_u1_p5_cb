@@ -1,0 +1,13 @@
+package com.uce.edu.service;
+import java.math.BigDecimal;
+
+import com.uce.edu.repository.modelo.Transferencia;
+
+public interface ITransferenciaService {
+
+	public Transferencia buscar(String numero);
+	public void guardar (Transferencia transferencia);
+	public void actualizar(Transferencia transferencia);
+	public void elimiar(String numero);
+	public void realizar(String numeroOrigen,String numeroDestino, BigDecimal monto);
+}
