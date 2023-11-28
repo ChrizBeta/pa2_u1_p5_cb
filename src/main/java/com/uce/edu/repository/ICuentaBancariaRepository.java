@@ -5,6 +5,8 @@ import com.uce.edu.repository.modelo.CuentaBancaria;
 public interface ICuentaBancariaRepository {
 	
 	public CuentaBancaria seleccionar(String numero);
+	
+	public CuentaBancaria seleccionarEliminar(String numero);
 
 	public void insertar(CuentaBancaria cuentaBancaria);
 

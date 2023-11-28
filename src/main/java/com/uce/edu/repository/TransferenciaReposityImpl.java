@@ -11,6 +11,7 @@ import com.uce.edu.repository.modelo.Transferencia;
 public class TransferenciaReposityImpl implements ITransferenciaRepository {
 
 	private static List<Transferencia> base = new ArrayList<Transferencia>();
+
 	@Override
 	public Transferencia seleccionar(String numero) {
 
@@ -24,8 +25,8 @@ public class TransferenciaReposityImpl implements ITransferenciaRepository {
 
 	@Override
 	public void insertar(Transferencia transferencia) {
-		
-	base.add(transferencia);
+
+		base.add(transferencia);
 	}
 
 	@Override
@@ -33,13 +34,17 @@ public class TransferenciaReposityImpl implements ITransferenciaRepository {
 		this.eliminar(transferencia.getNumero());
 		this.insertar(transferencia);
 
-
 	}
 
 	@Override
 	public void eliminar(String numero) {
-		Transferencia tranferencia=this.seleccionar(numero);
+		Transferencia tranferencia = this.seleccionar(numero);
 		base.remove(tranferencia);
+	}
+
+	@Override
+	public List<Transferencia> seleccionarTodos() {
+		return base;
 	}
 
 }

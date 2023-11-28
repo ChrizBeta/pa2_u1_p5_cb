@@ -2,6 +2,7 @@ package com.uce.edu.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,24 +51,42 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 		BigDecimal saldoOrigen = ctaOrigen.getSaldo();
 
 		if (saldoOrigen.compareTo(monto) >= 0) {
+						
 			BigDecimal nuevoSaldoOrigen = saldoOrigen.subtract(monto);
 			ctaOrigen.setSaldo(nuevoSaldoOrigen);
 			this.bancariaRepository.actualizar(ctaOrigen);
+			
+			
 			CuentaBancaria ctaDestino = this.bancariaRepository.seleccionar(numeroDestino);
 			BigDecimal saldoDestino = ctaDestino.getSaldo();
-			BigDecimal nuevoSaldoDestino = saldoDestino.add(monto);
+			
+			BigDecimal finalSaldo = monto.multiply(new BigDecimal(0.1));
+		
+			
+			BigDecimal nuevoSaldoDestino = saldoDestino.add(monto.subtract(finalSaldo));
 			ctaDestino.setSaldo(nuevoSaldoDestino);
 			this.bancariaRepository.actualizar(ctaDestino);
+			
+			
 			Transferencia transferencia = new Transferencia();
 			transferencia.setCuentaOrigen(ctaOrigen);
 			transferencia.setCuentaDestino(ctaDestino);
 			transferencia.setFecha(LocalDateTime.now());
-			transferencia.setMonto(monto);		
+			transferencia.setMonto(monto);
+			
+			
+			
 			this.iTransferenciaRepository.insertar(transferencia);
 			System.out.println("Transferenia realizada con Exito!");
 		} else {
 			System.out.println("Saldo no disponible");
 		}
+	}
+
+	@Override
+	public List<Transferencia> buscarTodos() {
+		// TODO Auto-generated method stub
+		return this.iTransferenciaRepository.seleccionarTodos();
 	}
 
 }
