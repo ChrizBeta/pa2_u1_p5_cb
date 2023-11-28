@@ -2,6 +2,7 @@ package com.uce.edu.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,20 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 			transferencia.setCuentaOrigen(ctaOrigen);
 			transferencia.setCuentaDestino(ctaDestino);
 			transferencia.setFecha(LocalDateTime.now());
-			transferencia.setMonto(monto);		
+			transferencia.setMonto(monto);
+			
+			List<Transferencia> lista = this.iTransferenciaRepository.seleccionarTodos();
+
+
+			int indice = 1;
+			for (Transferencia trans:lista) {
+				indice++;
+				String numString = String.valueOf(indice);
+				transferencia.setNumero(numString);			
+				
+			}
+				
+			
 			this.iTransferenciaRepository.insertar(transferencia);
 			System.out.println("Transferenia realizada con Exito!");
 		} else {
@@ -70,4 +84,9 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 		}
 	}
 
+	@Override
+	public List<Transferencia> buscarTodos() {
+		// TODO Auto-generated method stub
+		return this.iTransferenciaRepository.seleccionarTodos();
+	}
 }
